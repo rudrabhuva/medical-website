@@ -1,3 +1,5 @@
+import { Star, Quote } from 'lucide-react';
+
 const About = () => {
   return (
     <div className="animate-fade-in">
@@ -41,6 +43,41 @@ const About = () => {
                 <p style={{ color: 'var(--text-muted)', margin: 0 }}>Happy Patients</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Patient Testimonials Section */}
+      <section className="section" style={{ background: 'linear-gradient(to top, var(--bg-color), #e0f2fe, var(--bg-color))' }}>
+        <div className="container">
+          <div className="section-header">
+            <span className="section-subtitle">Real Stories</span>
+            <h2 className="section-title">What Our Patients Say</h2>
+            <p style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>Don't just take our word for it. Read about the experiences of those who trusted us with their health.</p>
+          </div>
+          <div className="grid-3">
+            {[
+              { name: "Sarah Jenkins", text: "The care I received at Medisty was absolutely phenomenal. The doctors were attentive, the facility was pristine, and I felt completely safe.", rating: 5 },
+              { name: "Michael Chang", text: "I was rushed into the emergency department and the speed and professionalism of the staff saved my life. I cannot thank them enough.", rating: 5 },
+              { name: "Emily Rodriguez", text: "From the front desk to the surgical team, everyone was so compassionate. The private recovery rooms are comfortable and calming.", rating: 5 },
+              { name: "David Thompson", text: "Best medical experience I've ever had. The staff is genuinely caring and the online booking system is so convenient.", rating: 5 },
+              { name: "Linda Martinez", text: "I've been bringing my children here for years. The pediatricians are wonderful and always make my kids feel at ease.", rating: 5 },
+              { name: "Robert Wilson", text: "State-of-the-art facilities and a very professional environment. Highly recommend to anyone looking for specialized care.", rating: 5 }
+            ].map((review, idx) => (
+              <div key={idx} className="glass-panel" style={{ position: 'relative', padding: '2.5rem 2rem' }}>
+                <Quote size={40} color="var(--primary-light)" style={{ opacity: 0.2, position: 'absolute', top: '1.5rem', left: '1.5rem' }} />
+                <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '1rem', position: 'relative', zIndex: 1 }}>
+                  {[...Array(review.rating)].map((_, i) => <Star key={i} size={18} color="#f59e0b" fill="#f59e0b" />)}
+                </div>
+                <p style={{ color: 'var(--text-main)', fontSize: '1.05rem', fontStyle: 'italic', marginBottom: '1.5rem', position: 'relative', zIndex: 1, lineHeight: 1.7 }}>"{review.text}"</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ width: '45px', height: '45px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--primary-light), var(--primary-color))', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '1.2rem' }}>
+                    {review.name.charAt(0)}
+                  </div>
+                  <h4 style={{ margin: 0, color: 'var(--primary-dark)', fontSize: '1.1rem' }}>{review.name}</h4>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
