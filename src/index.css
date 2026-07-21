@@ -355,3 +355,24 @@ img {
   text-align: center;
   color: var(--text-muted);
 }
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(-5deg); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-25px) scale(1.05); }
+}
+
+.floating-icon-1 { animation: float-slow 6s ease-in-out infinite; }
+.floating-icon-2 { animation: float-medium 5s ease-in-out infinite; }
+.floating-icon-3 { animation: float-fast 4s ease-in-out infinite; }
+.floating-icon-4 { animation: float-slow 7s ease-in-out infinite; animation-delay: 1s; }
+.floating-icon-5 { animation: float-medium 6s ease-in-out infinite; animation-delay: 2s; }
