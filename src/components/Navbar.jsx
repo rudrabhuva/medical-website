@@ -21,8 +21,8 @@ const Navbar = () => {
           <li><Link to="/services" className={`nav-link ${isActive('/services')}`}>Services</Link></li>
           <li><Link to="/doctors" className={`nav-link ${isActive('/doctors')}`}>Our Doctors</Link></li>
           <li><Link to="/medicines" className={`nav-link ${isActive('/medicines')}`}>Medicines</Link></li>
-          <li><Link to="/contact" className={`nav-link ${isActive('/contact')}`}>Contact</Link></li>
           <li><Link to="/about" className={`nav-link ${isActive('/about')}`}>About Us</Link></li>
+          <li><Link to="/contact" className={`nav-link ${isActive('/contact')}`}>Contact</Link></li>
         </ul>
 
         <div className="flex-center" style={{ gap: '1rem' }}>

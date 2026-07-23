@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Search, ShoppingCart, Filter, Upload, X, CheckCircle, Plus, Minus, Info, Heart, Shield, Droplet, Activity, FileText, Package, Users, Headset, Pill, Leaf, ShieldPlus } from 'lucide-react';
+import { Search, ShoppingCart, Filter, Upload, X, CheckCircle, Plus, Minus, Info, Heart, Shield, Droplet, Activity, FileText, Package, Users, Headset, Pill, Leaf, ShieldPlus, ChevronDown, ChevronUp, ChevronRight, ChevronLeft, CreditCard, Truck, UploadCloud } from 'lucide-react';
 
 const medicinesData = [
   { id: 1, name: 'Amoxicillin 500mg', category: 'Antibiotics', price: 12.99, desc: 'Used to treat a wide variety of bacterial infections.', img: 'https://images.unsplash.com/photo-1584308666744-24d5e4b10468?q=80&w=2070&auto=format&fit=crop', requiresRx: true, stock: 45, ingredients: 'Amoxicillin trihydrate', dosage: 'One capsule every 8 hours', sideEffects: 'Nausea, vomiting, diarrhea, rash' },
@@ -22,6 +22,39 @@ const conditions = [
   { name: 'General', icon: Activity, color: '#22c55e' }
 ];
 
+const healthcareData = [
+  { id: 101, name: 'Dettol Antiseptic', category: 'Hygiene', price: 5.99, desc: 'First aid antiseptic liquid for cleaning wounds and cuts.', img: 'https://images.unsplash.com/photo-1584483756881-44755106b0d9?q=80&w=2070&auto=format&fit=crop', requiresRx: false, stock: 150, ingredients: 'Chloroxylenol', dosage: 'Use as directed', sideEffects: 'Skin irritation (rare)' },
+  { id: 102, name: 'Antibacterial Soap', category: 'Hygiene', price: 2.50, desc: 'Gentle antibacterial soap for daily use.', img: 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?q=80&w=2089&auto=format&fit=crop', requiresRx: false, stock: 200, ingredients: 'Benzalkonium chloride', dosage: 'Use as directed', sideEffects: 'None' },
+  { id: 103, name: 'Hand Sanitizer 500ml', category: 'Hygiene', price: 4.25, desc: '70% alcohol-based hand sanitizer.', img: 'https://images.unsplash.com/photo-1584483756816-2917719602a8?q=80&w=2070&auto=format&fit=crop', requiresRx: false, stock: 100, ingredients: 'Isopropyl Alcohol 70%', dosage: 'Apply small amount to hands', sideEffects: 'Dry skin' },
+  { id: 104, name: 'First Aid Bandages', category: 'First Aid', price: 3.99, desc: 'Pack of 50 sterile adhesive bandages.', img: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?q=80&w=2062&auto=format&fit=crop', requiresRx: false, stock: 80, ingredients: 'N/A', dosage: 'Apply to clean, dry wound', sideEffects: 'None' },
+  { id: 105, name: 'Mint Mouthwash', category: 'Oral Care', price: 6.50, desc: 'Antiseptic mouthwash for long-lasting fresh breath.', img: 'https://images.unsplash.com/photo-1559598467-f8b76c8155d0?q=80&w=2071&auto=format&fit=crop', requiresRx: false, stock: 120, ingredients: 'Eucalyptol, Menthol', dosage: 'Rinse twice daily', sideEffects: 'None' },
+  { id: 106, name: 'Moisturizing Body Wash', category: 'Personal Care', price: 7.99, desc: 'Hydrating body wash for sensitive skin.', img: 'https://images.unsplash.com/photo-1556228578-8d89f6aca8d5?q=80&w=1974&auto=format&fit=crop', requiresRx: false, stock: 90, ingredients: 'Glycerin, Aloe Vera', dosage: 'Use daily in shower', sideEffects: 'None' },
+  { id: 107, name: 'Cotton Swabs', category: 'Hygiene', price: 2.99, desc: '100% pure cotton swabs, pack of 200.', img: 'https://images.unsplash.com/photo-1627914856006-03dbde7718e0?q=80&w=2069&auto=format&fit=crop', requiresRx: false, stock: 250, ingredients: 'Cotton', dosage: 'Use as needed', sideEffects: 'None' },
+  { id: 108, name: 'Vitamin C Serum', category: 'Skin Care', price: 15.50, desc: 'Brightening vitamin C serum for daily skincare routine.', img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1974&auto=format&fit=crop', requiresRx: false, stock: 40, ingredients: 'Vitamin C, Hyaluronic Acid', dosage: 'Apply few drops daily', sideEffects: 'Mild tingling' }
+];
+
+const faqs = [
+  { q: "How long does delivery take?", a: "Most orders are delivered within 2-4 hours in metro areas, and 1-2 business days for other locations." },
+  { q: "Can I return medicines?", a: "For safety reasons, we do not accept returns on prescription medications. However, unopened non-prescription items can be returned within 7 days." },
+  { q: "Are my prescriptions secure?", a: "Yes, we use end-to-end encryption to ensure your medical data and prescriptions remain completely confidential and are only accessed by certified pharmacists." },
+  { q: "Do you offer discounts for regular customers?", a: "Yes, we have a subscription model for chronic medications that offers up to 15% off on monthly refills." }
+];
+
+const steps = [
+  { icon: Search, title: "Search & Select", desc: "Find your required medicines or healthcare products." },
+  { icon: UploadCloud, title: "Upload Rx", desc: "Upload a valid prescription for Rx-only medications." },
+  { icon: CreditCard, title: "Secure Checkout", desc: "Pay securely using multiple payment options available." },
+  { icon: Truck, title: "Fast Delivery", desc: "Get your order delivered safely to your doorstep." }
+];
+
+const brands = [
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Johnson_and_Johnson_Logo.svg/1024px-Johnson_and_Johnson_Logo.svg.png",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Pfizer_%282021%29.svg/1024px-Pfizer_%282021%29.svg.png",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/GSK_logo_2022.svg/1024px-GSK_logo_2022.svg.png",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Bayer_Cross.svg/1024px-Bayer_Cross.svg.png",
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Novartis_logo.svg/1024px-Novartis_logo.svg.png"
+];
+
 const Medicines = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -30,6 +63,10 @@ const Medicines = () => {
   const [quantities, setQuantities] = useState({});
   const [toast, setToast] = useState(null);
   const [cartCount, setCartCount] = useState(0);
+  const [showAllMedicines, setShowAllMedicines] = useState(false);
+  const [showAllHealthcare, setShowAllHealthcare] = useState(false);
+  const [openFaq, setOpenFaq] = useState(null);
+  const [prescriptionUploaded, setPrescriptionUploaded] = useState(false);
 
   useEffect(() => {
     if (selectedMedicine) {
@@ -86,7 +123,7 @@ const Medicines = () => {
         backgroundImage: 'radial-gradient(rgba(59, 130, 246, 0.15) 2px, transparent 2px), linear-gradient(to bottom, #bfdbfe 0%, #e0f2fe 100%)',
         backgroundSize: '30px 30px, 100% 100%',
         paddingTop: '8rem', 
-        paddingBottom: '5rem', 
+        paddingBottom: '2rem', 
         position: 'relative', 
         overflow: 'hidden' 
       }}>
@@ -131,67 +168,64 @@ const Medicines = () => {
                 />
                 <Search size={20} color="var(--primary-color)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
               </div>
-              <button className="btn btn-primary" style={{ borderRadius: '2rem' }}>
+              <button 
+                className="btn btn-primary" 
+                style={{ borderRadius: '2rem' }}
+                onClick={() => document.getElementById('products-section')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 Search
               </button>
             </div>
             
-            {/* Stats Row */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '3.5rem', flexWrap: 'wrap', width: '100%', maxWidth: '900px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(12px)', padding: '1rem 1.5rem', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.7)', boxShadow: '0 10px 30px rgba(59, 130, 246, 0.05)', flex: '1 1 220px' }}>
-                <div style={{ background: '#dbeafe', width: '48px', height: '48px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <Package size={24} color="#2563eb" />
-                </div>
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontWeight: 800, color: 'var(--primary-dark)', fontSize: '1.25rem', lineHeight: 1.1 }}>5,000+</div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600 }}>Products</div>
-                </div>
-              </div>
-              
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(12px)', padding: '1rem 1.5rem', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.7)', boxShadow: '0 10px 30px rgba(59, 130, 246, 0.05)', flex: '1 1 220px' }}>
-                <div style={{ background: '#dbeafe', width: '48px', height: '48px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <Users size={24} color="#2563eb" />
-                </div>
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontWeight: 800, color: 'var(--primary-dark)', fontSize: '1.25rem', lineHeight: 1.1 }}>1M+</div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600 }}>Happy Customers</div>
-                </div>
-              </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(12px)', padding: '1rem 1.5rem', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.7)', boxShadow: '0 10px 30px rgba(59, 130, 246, 0.05)', flex: '1 1 220px' }}>
-                <div style={{ background: '#dbeafe', width: '48px', height: '48px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <Headset size={24} color="#2563eb" />
-                </div>
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontWeight: 800, color: 'var(--primary-dark)', fontSize: '1.25rem', lineHeight: 1.1 }}>24/7</div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 600 }}>Support</div>
-                </div>
+
+          </div>
+        </div>
+      </section>
+
+
+      <section style={{ padding: '1rem 0', background: 'var(--surface-color)' }}>
+        <div className="container">
+          {/* Stats Row */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', width: '100%', maxWidth: '1000px', margin: '0 auto' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', background: 'var(--bg-color)', padding: '1.5rem 2rem', borderRadius: '1.5rem', flex: '1 1 250px' }}>
+              <div style={{ background: '#dbeafe', width: '56px', height: '56px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <Package size={28} color="#2563eb" />
+              </div>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontWeight: 800, color: 'var(--primary-dark)', fontSize: '1.5rem', lineHeight: 1.1 }}>5,000+</div>
+                <div style={{ fontSize: '0.95rem', color: 'var(--text-muted)', fontWeight: 600 }}>Products</div>
+              </div>
+            </div>
+            
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', background: 'var(--bg-color)', padding: '1.5rem 2rem', borderRadius: '1.5rem', flex: '1 1 250px' }}>
+              <div style={{ background: '#dbeafe', width: '56px', height: '56px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <Users size={28} color="#2563eb" />
+              </div>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontWeight: 800, color: 'var(--primary-dark)', fontSize: '1.5rem', lineHeight: 1.1 }}>1M+</div>
+                <div style={{ fontSize: '0.95rem', color: 'var(--text-muted)', fontWeight: 600 }}>Happy Customers</div>
               </div>
             </div>
 
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', background: 'var(--bg-color)', padding: '1.5rem 2rem', borderRadius: '1.5rem', flex: '1 1 250px' }}>
+              <div style={{ background: '#dbeafe', width: '56px', height: '56px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <Headset size={28} color="#2563eb" />
+              </div>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontWeight: 800, color: 'var(--primary-dark)', fontSize: '1.5rem', lineHeight: 1.1 }}>24/7</div>
+                <div style={{ fontSize: '0.95rem', color: 'var(--text-muted)', fontWeight: 600 }}>Support</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Shop by Condition */}
-      <section style={{ padding: '3rem 0', background: 'var(--surface-color)' }}>
-        <div className="container">
-          <h3 style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--text-muted)', fontWeight: 500 }}>Shop by Health Condition</h3>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '3rem', flexWrap: 'wrap' }}>
-            {conditions.map((cond, i) => (
-              <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', transition: 'transform 0.3s' }} onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: `${cond.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <cond.icon size={30} color={cond.color} />
-                </div>
-                <span style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-main)' }}>{cond.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
+
 
       {/* Main Products Section */}
-      <section className="section" style={{ background: '#f8fafc' }}>
+      <section id="products-section" className="section" style={{ background: '#f8fafc', paddingTop: '1rem', paddingBottom: '2rem' }}>
         <div className="container">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
             <div>
@@ -237,7 +271,7 @@ const Medicines = () => {
 
           {/* Grid */}
           <div className="grid-4">
-            {filteredMedicines.map(med => (
+            {(showAllMedicines ? filteredMedicines : filteredMedicines.slice(0, 4)).map(med => (
               <div key={med.id} className="glass-card" onClick={() => setSelectedMedicine(med)} style={{ padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column', position: 'relative' }}>
                 {/* Badges */}
                 <div style={{ position: 'absolute', top: '1rem', left: '1rem', display: 'flex', gap: '0.5rem', zIndex: 2 }}>
@@ -282,6 +316,18 @@ const Medicines = () => {
               </div>
             ))}
           </div>
+
+          {filteredMedicines.length > 4 && (
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
+              <button 
+                className="btn btn-outline" 
+                onClick={() => setShowAllMedicines(!showAllMedicines)}
+                style={{ padding: '0.75rem 2rem', fontSize: '1rem' }}
+              >
+                {showAllMedicines ? 'View Less' : 'See All Medicines'}
+              </button>
+            </div>
+          )}
           
           {filteredMedicines.length === 0 && (
             <div className="glass-panel" style={{ textAlign: 'center', padding: '4rem 0', maxWidth: '500px', margin: '2rem auto' }}>
@@ -293,7 +339,144 @@ const Medicines = () => {
         </div>
       </section>
 
+      {/* Shop by Condition */}
+      <section style={{ padding: '3rem 0', background: 'var(--surface-color)' }}>
+        <div className="container">
+          <h3 style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--text-muted)', fontWeight: 500 }}>Shop by Health Condition</h3>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '3rem', flexWrap: 'wrap' }}>
+            {conditions.map((cond, i) => (
+              <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', transition: 'transform 0.3s' }} onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: `${cond.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <cond.icon size={30} color={cond.color} />
+                </div>
+                <span style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-main)' }}>{cond.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
+
+      {/* Healthcare Products Section */}
+      <section className="section" style={{ background: 'var(--surface-color)', paddingTop: '1rem', paddingBottom: '1rem' }}>
+        <div className="container">
+          <div style={{ marginBottom: '2rem' }}>
+            <h2 className="section-title" style={{ margin: 0 }}>Healthcare & Everyday Essentials</h2>
+            <p style={{ color: 'var(--text-muted)', marginTop: '0.5rem' }}>Personal care, hygiene, and first-aid items</p>
+          </div>
+
+          <div className="grid-4">
+            {(showAllHealthcare ? healthcareData : healthcareData.slice(0, 4)).map(item => (
+              <div key={item.id} className="glass-card" onClick={() => setSelectedMedicine(item)} style={{ padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column', position: 'relative', background: '#f8fafc' }}>
+                <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
+                  <img src={item.img} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }} className="med-img" />
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0.75rem 1rem', background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 600 }}>
+                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: item.stock > 0 ? '#4ade80' : '#ef4444', boxShadow: `0 0 8px ${item.stock > 0 ? '#4ade80' : '#ef4444'}` }}></span>
+                      {item.stock > 0 ? 'In Stock' : 'Out of Stock'}
+                    </span>
+                  </div>
+                </div>
+
+                <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--primary-color)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.25rem' }}>{item.category}</span>
+                  <h3 style={{ fontSize: '1.25rem', color: 'var(--primary-dark)', margin: '0 0 0.5rem', lineHeight: 1.3 }}>{item.name}</h3>
+                  <span style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '1rem' }}>${item.price.toFixed(2)}</span>
+                  
+                  <div style={{ flexGrow: 1 }}></div>
+
+                  <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }} onClick={e => e.stopPropagation()}>
+                    <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--border-color)', borderRadius: '0.5rem', overflow: 'hidden' }}>
+                      <button style={{ padding: '0.5rem', background: 'var(--surface-color)', border: 'none', cursor: 'pointer', transition: 'background 0.2s' }} onClick={() => updateQuantity(item.id, -1)} disabled={item.stock === 0} onMouseOver={(e) => e.currentTarget.style.background='#f1f5f9'} onMouseOut={(e) => e.currentTarget.style.background='var(--surface-color)'}><Minus size={16} /></button>
+                      <span style={{ width: '2rem', textAlign: 'center', fontWeight: 600 }}>{getQuantity(item.id)}</span>
+                      <button style={{ padding: '0.5rem', background: 'var(--surface-color)', border: 'none', cursor: 'pointer', transition: 'background 0.2s' }} onClick={() => updateQuantity(item.id, 1)} disabled={item.stock === 0} onMouseOver={(e) => e.currentTarget.style.background='#f1f5f9'} onMouseOut={(e) => e.currentTarget.style.background='var(--surface-color)'}><Plus size={16} /></button>
+                    </div>
+                    <button 
+                      className="btn btn-primary" 
+                      style={{ flexGrow: 1, padding: '0', opacity: item.stock === 0 ? 0.5 : 1, cursor: item.stock === 0 ? 'not-allowed' : 'pointer' }} 
+                      onClick={(e) => item.stock > 0 && handleAddToCart(e, item)}
+                      disabled={item.stock === 0}
+                    >
+                      {item.stock > 0 ? <><ShoppingCart size={16} /> Add</> : 'Out'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {healthcareData.length > 4 && (
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
+              <button 
+                className="btn btn-outline" 
+                onClick={() => setShowAllHealthcare(!showAllHealthcare)}
+                style={{ padding: '0.75rem 2rem', fontSize: '1rem' }}
+              >
+                {showAllHealthcare ? 'View Less' : 'See All Products'}
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* How it Works */}
+      <section style={{ padding: '3rem 0 4rem 0', background: 'var(--surface-color)' }}>
+        <div className="container">
+          <h3 style={{ textAlign: 'center', marginBottom: '3rem', color: 'var(--primary-dark)', fontSize: '2rem', fontWeight: 700 }}>How It Works</h3>
+          <div className="grid-4" style={{ gap: '2rem' }}>
+            {steps.map((step, i) => (
+               <div key={i} style={{ textAlign: 'center', position: 'relative' }}>
+                 <div style={{ width: '80px', height: '80px', background: '#eff6ff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
+                    <step.icon size={36} color="#2563eb" />
+                 </div>
+                 <h4 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: 'var(--text-main)', fontWeight: 700 }}>{step.title}</h4>
+                 <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>{step.desc}</p>
+               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trusted Brands */}
+      <section style={{ padding: '4rem 0', background: '#f8fafc', borderTop: '1px solid var(--border-color)' }}>
+         <div className="container">
+            <h3 style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '3rem', fontWeight: 600 }}>Trusted by Leading Brands</h3>
+            <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', flexWrap: 'wrap', gap: '2rem', opacity: 0.6 }}>
+               {brands.map((brand, i) => (
+                  <img key={i} src={brand} alt="Brand Logo" style={{ height: '40px', objectFit: 'contain', filter: 'grayscale(100%)', transition: 'all 0.3s', cursor: 'pointer' }} onMouseOver={(e) => { e.currentTarget.style.filter = 'grayscale(0%)'; e.currentTarget.style.opacity = '1'; }} onMouseOut={(e) => { e.currentTarget.style.filter = 'grayscale(100%)'; e.currentTarget.style.opacity = '0.6'; }} />
+               ))}
+            </div>
+         </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section style={{ padding: '5rem 0', background: 'var(--surface-color)' }}>
+         <div className="container" style={{ maxWidth: '800px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+               <h2 className="section-title">Frequently Asked Questions</h2>
+               <p style={{ color: 'var(--text-muted)' }}>Everything you need to know about ordering medicines online.</p>
+            </div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+               {faqs.map((faq, i) => (
+                  <div key={i} style={{ border: '1px solid var(--border-color)', borderRadius: '1rem', overflow: 'hidden' }}>
+                     <button 
+                        style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.5rem', background: openFaq === i ? '#eff6ff' : 'var(--surface-color)', border: 'none', cursor: 'pointer', textAlign: 'left', transition: 'background 0.3s' }}
+                        onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                     >
+                        <span style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--primary-dark)' }}>{faq.q}</span>
+                        {openFaq === i ? <ChevronUp size={20} color="#2563eb" /> : <ChevronDown size={20} color="var(--text-muted)" />}
+                     </button>
+                     {openFaq === i && (
+                        <div style={{ padding: '0 1.5rem 1.5rem', background: '#eff6ff', color: 'var(--text-main)', lineHeight: 1.6 }}>
+                           {faq.a}
+                        </div>
+                     )}
+                  </div>
+               ))}
+            </div>
+         </div>
+      </section>
 
       <style>{`
         .med-img:hover {
