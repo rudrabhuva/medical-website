@@ -67,7 +67,7 @@ const About = () => {
         
         <div className="container" style={{ textAlign: 'center', maxWidth: '800px', position: 'relative', zIndex: 1 }}>
           <span style={{ background: 'rgba(37, 99, 235, 0.1)', color: '#2563eb', padding: '0.5rem 1.5rem', borderRadius: '2rem', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '1.5rem', display: 'inline-block' }}>Our Mission</span>
-          <h1 style={{ fontSize: '4rem', margin: '0 0 1.5rem', lineHeight: 1.1, fontWeight: 800, color: 'var(--primary-dark)' }}>Accessible & Reliable Healthcare</h1>
+          <h1 style={{ fontSize: '3.25rem', margin: '0 0 1.5rem', lineHeight: 1.1, fontWeight: 800, color: 'var(--primary-dark)' }}>Accessible & Reliable Healthcare</h1>
           <p style={{ color: 'var(--text-main)', fontSize: '1.25rem', marginTop: '1rem', fontWeight: '600', maxWidth: '600px', margin: '1rem auto 0' }}>Combining advanced technology with compassionate service to revolutionize your health management.</p>
         </div>
       </div>
